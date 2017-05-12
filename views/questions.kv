@@ -1,0 +1,89 @@
+#:kivy 1.9.1
+#:import kivy kivy
+# :import win kivy.core.window
+<Controller>
+    # objeto de la via que estaran cambiando
+    label_warning: a_warning
+    dinamic_question: the_question
+    GridLayout:
+        canvas:
+            Color:
+                # rgb: 76, 175, 80
+                rgba: 0.04, 0.72, 0.24, 0.7
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        cols: 1
+        Label:
+            text: root.label_leyenda
+            bold: "false"
+            markup: "true"
+            font_name: "data/fonts/RobotoMono-Regular.ttf"
+            font_size: 14
+            size_hint_y: .4
+        Label:
+            id: the_question
+            text: root.pregunta
+            bold: "true"
+            font_name: "data/fonts/RobotoMono-Regular.ttf"
+            font_size: 16
+            size_hint_y: .2
+
+        GridLayout:
+            cols: 5
+            padding: 30
+            spacing: 20
+            ToggleButton:
+                text: root.respuesta_1
+                group: "select"
+                on_state:
+                    if self.state == 'down': root.get_answer('1')
+                    else: root.get_answer('0')
+            ToggleButton:
+                text: root.respuesta_2
+                group: "select"
+                on_state:
+                    if self.state == 'down': root.get_answer('2')
+                    else: root.get_answer('0')
+            ToggleButton:
+                text: root.respuesta_3
+                group: "select"
+                on_state:
+                    if self.state == 'down': root.get_answer('3')
+                    else: root.get_answer('0')
+            ToggleButton:
+                text: root.respuesta_4
+                group: "select"
+                on_state:
+                    if self.state == 'down': root.get_answer('4')
+                    else: root.get_answer('0')
+            ToggleButton:
+                text: root.respuesta_5
+                group: "select"
+                on_state:
+                    if self.state == 'down': root.get_answer('5')
+                    else: root.get_answer('0')
+        Label:
+            id: a_warning
+            text: ""
+            bold: "true"
+            markup: "true"
+            font_name: "data/fonts/RobotoMono-Regular.ttf"
+            font_size: 18
+            size_hint_y: .1
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 30
+            spacing: 10
+            Button:
+                text: "Enviar respuesta"
+                size_hint: 1, 0.5
+                on_press:
+                    root.next_question()
+                    if root.question_no == root.last_question: app.stop()
+            Button:
+                text: "Salir del programa ..."
+                size_hint: 1, 0.2
+                on_press:
+                    root.exit_program()
+                    app.stop()
